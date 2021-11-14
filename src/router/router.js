@@ -6,20 +6,11 @@ const Pcap = () => import("views/pcap/Pcap.vue")
 
 const routes = [
   {
-    path: '',
-    redirect: "/home"
-  },
-  {
-    path: '/home',
-    redirect: "/hosts",
-    component: Home,
-  },
-  {
     path: '/hosts',
     component: Hosts
   },
   {
-    path: '/pacp',
+    path: '/pcap',
     component: Pcap
   }
 ]

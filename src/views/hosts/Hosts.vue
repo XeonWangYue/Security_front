@@ -16,7 +16,9 @@ export default {
   methods: {
     getHosts() {
       postHosts().then((res) => {
-        this.hosts = res;
+        if (res.length && res.length != 0) {
+          this.hosts = res;
+        }
       })
     }
   },

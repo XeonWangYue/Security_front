@@ -87,12 +87,17 @@ export default {
         ]
       };
       this.charts.setOption(option);
-      let interval = setInterval(() => {
+      this.interval = setInterval(() => {
         postSystem(this.ip).then(response => {
           if (response == null) {
-            clearInterval(interval);
+            clearInterval(this.interval);
           }
-          let obj = JSON.parse(response)
+          let obj;
+          try {
+            obj = JSON.parse(response)
+          } catch (e) {
+            clearInterval(this.interval)
+          }
           let cpuper = obj.cpuLoadPercentage;
           let memory = obj.memory;
           let perdata = this.getCpuData(cpuper, memory)
@@ -100,14 +105,15 @@ export default {
           if (cpudata.length == 0) {
             this.platform = obj.platform;
           }
-          if (cpudata.length == 100) {
-            cpudata.shift();
-          }
-          if (memorydata.length == 100) {
-            memorydata.shift();
-          }
+
           memorydata.push(perdata[1]);
           cpudata.push(perdata[0]);
+          if (memorydata.length > 100) {
+            memorydata.shift();
+          }
+          if (cpudata.length > 100) {
+            cpudata.shift();
+          }
           this.charts.setOption({
             series: [
               {
@@ -140,11 +146,15 @@ export default {
   mounted() {
     this.cpuUse();
   },
+  unmounted() {
+    clearInterval(this.interval);
+  },
   data() {
     return {
       platform: "",
       uptime: 0,
-      charts: null
+      charts: null,
+      interval: null
     }
   },
   computed: {
@@ -161,7 +171,7 @@ export default {
         let minute = Math.floor(secs / 60);
         secs = secs % 60;
         let seconds = secs
-        return day+"天 "+ hour+"小时 "+minute+"分钟 "+ seconds+"秒";
+        return day + "天 " + hour + "小时 " + minute + "分钟 " + seconds + "秒";
       }
     }
   }

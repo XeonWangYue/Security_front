@@ -12,7 +12,7 @@ export function request(config) {
     //创建axios实例
     const instance = axios.create({
       baseURL: "/api",
-      timeout: 10000,
+      timeout: 5000,
       headers: {
         "Content-Type": 'application/json;charset=utf-8'
       }

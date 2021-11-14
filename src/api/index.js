@@ -16,3 +16,17 @@ export function postHosts() {
     method: "POST",
   })
 }
+
+export function postSrcIp(src, dst, ps, pd, type) {
+  return request({
+    url: '/searchBySrcIp',
+    method: "POST",
+    params: {
+      srcIp: src,
+      dstIp: dst,
+      srcPort: ps,
+      dstPort: pd,
+      type: type
+    }
+  })
+}

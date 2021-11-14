@@ -6,9 +6,10 @@
           class="el-menu-demo"
           mode="horizontal"
           @select="handleSelect"
+          router="true"
       >
-        <el-menu-item index="hosts">主机监控</el-menu-item>
-        <el-menu-item index="pcap">网络监控</el-menu-item>
+        <el-menu-item index="/hosts" route="/hosts">主机监控</el-menu-item>
+        <el-menu-item index="/pcap" route="/pcap">网络监控</el-menu-item>
       </el-menu>
     </el-header>
     <el-main>
@@ -24,10 +25,12 @@ export default {
   name: "Home",
   methods: {
     handleSelect(key, keyPath) {
-      console.log(key, keyPath);
+      console.log(key);
       this.activeIndex = key;
-      router.push({path: '/' + key});
     }
+  },
+  mounted() {
+
   },
   data() {
     return {
