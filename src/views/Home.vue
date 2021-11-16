@@ -10,6 +10,7 @@
       >
         <el-menu-item index="/hosts" route="/hosts">主机监控</el-menu-item>
         <el-menu-item index="/pcap" route="/pcap">网络监控</el-menu-item>
+        <el-menu-item index="/search" route="/search">数据包过滤搜索</el-menu-item>
       </el-menu>
     </el-header>
     <el-main>
